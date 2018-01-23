@@ -1,5 +1,10 @@
+
+
 public class Products
 {
+
+
+
 
     private String productName;
     private int numberInStock;
