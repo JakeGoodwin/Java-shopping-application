@@ -4,6 +4,7 @@ public class Customers
     private String postcode;
     private int houseNumber;
 
+    //Used simply for order details so orders go to the correct address - no initial need for customers table
     public Customers(String name, String postcode, int houseNumber)
     {
         this.name = name;
@@ -12,27 +13,33 @@ public class Customers
     }
 
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getPostcode() {
+    public String getPostcode()
+    {
         return postcode;
     }
 
-    public void setPostcode(String postcode) {
+    public void setPostcode(String postcode)
+    {
         this.postcode = postcode;
     }
 
-    public int getHouseNumber() {
+    public int getHouseNumber()
+    {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(int houseNumber)
+    {
         this.houseNumber = houseNumber;
     }
 }
