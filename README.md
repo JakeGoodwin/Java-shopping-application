@@ -1,2 +1,2 @@
 # Java-shopping-application
-Another git test using a java program
+This project is for my learning of GitHub as well as the use of MySQL and UI elements
