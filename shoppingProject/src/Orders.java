@@ -4,8 +4,6 @@ import java.util.*;
 public class Orders
 {
 
-    private static int NUMBER_OF_ORDERS;
-    private int orderNumber = 0;
     Customers customer;
     HashMap<String, Integer> productsBought = new HashMap<>();
 
@@ -32,22 +30,56 @@ public class Orders
             System.out.println("Connecting to database...");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            //Execute a query
-            System.out.println("Creating statement...");
+
             statement = connection.createStatement();
             String sql;
-            sql = "SELECT name FROM products WHERE stock = 20";
-            ResultSet resultSet = statement.executeQuery(sql);
 
-            //Extract data
-            while (resultSet.next()) {
-                System.out.println("Name: " + resultSet.getString("name"));
+            this.customer = customer;
+            sql = String.format("INSERT INTO orders (CustomerName, postCode, number) VALUES (\'%s\', \'%s\', \'%s\');",
+                    customer.getName(), customer.getPostcode(), customer.getHouseNumber());
+
+            //Execute a query
+            statement.executeUpdate(sql);
+
+            for(Products product : products)
+            {
+                 if(productsBought.containsKey(product.getProductName()))
+                {
+                    productsBought.put(product.getProductName(), productsBought.get(product.getProductName()) + 1);
+                } else {
+                    productsBought.put(product.getProductName(), 1);
+                }
+
             }
 
-            //clean up environment
-            resultSet.close();
+            for(Products product1 : products)
+            {
+                if(productsBought.get(product1.getProductName()) == null)
+                {
+                    continue;
+                }
+                statement = connection.createStatement();
+
+
+
+               String sql1 = "INSERT INTO order_product (id_order, quantity, product_id) VALUES ((select MAX(orderNumber) FROM orders), '" + productsBought.get(product1.getProductName()) + "', (select id FROM products WHERE name = '" + product1.getProductName() + "'));";
+
+                statement.executeUpdate(sql1);
+                productsBought.remove(product1.getProductName());
+
+            }
+
+
+
+
+
+
             statement.close();
             connection.close();
+
+
+
+
         }catch (SQLException sqle)
         {
             sqle.printStackTrace();
@@ -59,21 +91,6 @@ public class Orders
 
 
 
-
-        this.customer = customer;
-        NUMBER_OF_ORDERS++;
-        this.orderNumber = NUMBER_OF_ORDERS;
-        for(Products product : products) {
-            if(productsBought.containsKey(product.getProductName()))
-            {
-                productsBought.put(product.getProductName(), productsBought.get(product.getProductName()) + 1);
-            } else {
-                productsBought.put(product.getProductName(), 1);
-            }
-        }
-
-        System.out.println(productsBought);
-        System.out.println(NUMBER_OF_ORDERS);
 
     }
 
