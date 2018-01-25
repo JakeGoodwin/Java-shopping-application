@@ -56,8 +56,8 @@ public class Products
             if (!existingProduct.equals(this.getProductName()))
             {
                 //Insert product to DB if they do not already exist
-                sqlInsertProducts = String.format("INSERT INTO products (name, stock) VALUES (\'%s\', \'%s\');",
-                        this.getProductName(), this.getNumberInStock());
+                sqlInsertProducts = String.format("INSERT INTO products (name, stock, price) VALUES (\'%s\', \'%s\', \'%s\');",
+                        this.getProductName(), this.getNumberInStock(), this.getPrice());
 
                 //Execute a query
                 statement.executeUpdate(sqlInsertProducts);

@@ -18,7 +18,7 @@ public class Orders
 
 
     //constructor, does all of the work since we have 1 task to complete
-    public Orders(Customers customer, Products... products)
+    public Orders(Customers customer, ArrayList<Products> productsArrayList)
     {
 
         Connection connection = null;
@@ -47,7 +47,7 @@ public class Orders
             statement.executeUpdate(sqlInsertOrder);
 
             //Here we calculate the quantity of each product customer has ordered
-            for (Products product : products)
+            for (Products product : productsArrayList)
             {
                 if (productsBought.containsKey(product.getProductName()))
                 {
@@ -61,7 +61,7 @@ public class Orders
             }
 
             //make sure that the correct quantity of product is input into order_product and deduct that from the stock
-            for (Products product1 : products)
+            for (Products product1 : productsArrayList)
             {
                 //we remove product after being put in database to stop duplication, this checks so no erorrs are thrown
                 if (productsBought.get(product1.getProductName()) == null)
