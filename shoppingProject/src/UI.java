@@ -69,8 +69,8 @@ public class UI
             {
                 int position = e.getActionCommand().lastIndexOf("£");
 
-                System.out.println(position);
-                price.setText("£" + Double.toString(Double.parseDouble(price.getText().replace('£', '0'))
+
+                price.setText("£" + String.format("%.2f",Double.parseDouble(price.getText().replace('£', '0'))
                         + (Double.parseDouble(e.getActionCommand().substring(position+1)))));
 
                 for (Products products : productsArrayList)
