@@ -11,10 +11,7 @@ public class Main
         userInterface.setUpUserInterface();
 
         //create customers to make orders
-
         //Customers customersMichael = new Customers("Michael Smith", "MNS5 2TP", 9);
-
-
 
     }
 

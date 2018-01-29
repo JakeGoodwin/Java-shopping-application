@@ -1,4 +1,5 @@
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Products
 {
@@ -7,12 +8,7 @@ public class Products
     private int numberInStock;
     private double price;
 
-    //Set up JDBC
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/shop";
 
-    static final String USER = "root";
-    static final String PASS = "password1";
 
     //Constructor does all the work at the moment
     public Products(String productName, int numberInStock, double price)
@@ -20,35 +16,26 @@ public class Products
         this.productName = productName;
         this.numberInStock = numberInStock;
         this.price = price;
+        String existingProduct = "";
+        JDBC jdbc = new JDBC();
 
-
-        Connection connection = null;
-        Statement statement = null;
-
-        try
-        {
-            //Register JDBC driver
-            Class.forName(JDBC_DRIVER);
-
-            //Open a connection
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-
-
-            statement = connection.createStatement();
-
-            String sqlInsertProducts;
-            String sqlTestExistance;
 
             //retreives data of any product we are trying to add that may already be within databse
-            sqlTestExistance = "SELECT name FROM products WHERE name = '" + this.getProductName() + "';";
+            String sqlTestExistance = "SELECT name FROM products WHERE name = '" + this.getProductName() + "';";
+            ResultSet resultSet = jdbc.runSQLQuery(sqlTestExistance);
 
-            ResultSet resultSet = statement.executeQuery(sqlTestExistance);
 
-            String existingProduct = "";
-
-            while (resultSet.next())
+            try
             {
-                existingProduct = resultSet.getString("name");
+
+                while (resultSet.next())
+                {
+                    existingProduct = resultSet.getString("name");
+                }
+
+            }catch (SQLException e)
+            {
+                e.printStackTrace();
             }
 
 
@@ -56,28 +43,16 @@ public class Products
             if (!existingProduct.equals(this.getProductName()))
             {
                 //Insert product to DB if they do not already exist
-                sqlInsertProducts = String.format("INSERT INTO products (name, stock, price) VALUES (\'%s\', \'%s\', \'%s\');",
-                        this.getProductName(), this.getNumberInStock(), this.getPrice());
+                String sqlInsertProducts = String.format("INSERT INTO products (name, stock, price) VALUES (\'%s\', \'%s\', \'%s\');",
+                        this.getProductName(), this.getNumberInStock(), String.format("%.2f",this.getPrice()));
 
                 //Execute a query
-                statement.executeUpdate(sqlInsertProducts);
+                jdbc.runSQLUpdate(sqlInsertProducts);
             }
 
-            statement.close();
-            connection.close();
-
-
-        }
-        catch (SQLException sqle)
-        {
-            sqle.printStackTrace();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
     }
+
 
     public void addStock(int n)
     {

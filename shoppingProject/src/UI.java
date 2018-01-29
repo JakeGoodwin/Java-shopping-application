@@ -15,19 +15,6 @@ public class UI
 
     ArrayList<JButton> buttonArrayList = new ArrayList<>();
     ArrayList<Products> selectedProducts = new ArrayList<>();
-
-    //set up JDBC
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/shop";
-
-    //this is something that if made live would need to be removed from the code - possibly a future task
-    static final String USER = "root";
-    static final String PASS = "password1";
-
-    Connection connection = null;
-    Statement statement = null;
-
-
     ArrayList<Products> productsArrayList = new ArrayList<>();
 
 
@@ -71,6 +58,44 @@ public class UI
         final JButton product7 = new JButton("Product 7");
         final JButton product8 = new JButton("Product 8");
 
+
+        final JLabel price = new JLabel("£");
+
+
+        ActionListener listener = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                int position = e.getActionCommand().lastIndexOf("£");
+
+                System.out.println(position);
+                price.setText("£" + Double.toString(Double.parseDouble(price.getText().replace('£', '0'))
+                        + (Double.parseDouble(e.getActionCommand().substring(position+1)))));
+
+                for (Products products : productsArrayList)
+                {
+                    if(products.getProductName().equals(e.getActionCommand().substring(0, position-1)))
+                    {
+                        selectedProducts.add(products);
+                    }
+                }
+
+            }
+        };
+
+
+
+        //Stops us needing to have multiple listeners for a very similar action
+        product1.addActionListener(listener);
+        product2.addActionListener(listener);
+        product3.addActionListener(listener);
+        product4.addActionListener(listener);
+        product5.addActionListener(listener);
+        product6.addActionListener(listener);
+        product7.addActionListener(listener);
+        product8.addActionListener(listener);
+
         buttonArrayList.add(product1);
         buttonArrayList.add(product2);
         buttonArrayList.add(product3);
@@ -80,7 +105,7 @@ public class UI
         buttonArrayList.add(product7);
         buttonArrayList.add(product8);
 
-        final JLabel price = new JLabel("£");
+
 
         final JButton cancel = new JButton("Cancel and clear");
         final JButton order = new JButton("Place order");
@@ -110,137 +135,32 @@ public class UI
         final JButton button = new JButton("Click me");
         //frame.getContentPane().add(BorderLayout.SOUTH, button);
 
-        //Lambda expression - this detects the button was pressed and actions it.
-        product1.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product1.getToolTipText()))));
 
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product1.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product2.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product2.getToolTipText()))));
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product2.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product3.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product3.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product3.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product4.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product4.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product4.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product5.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product5.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product5.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-        });
-
-        product6.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product6.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product6.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product7.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product7.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product7.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
-        product8.addActionListener((ActionEvent e) ->
-        {
-            price.setText("£" + Integer.toString(Integer.parseInt(price.getText().replace('£', '0'))
-                    + (Integer.parseInt(product8.getToolTipText()))));
-
-            for (Products products : productsArrayList)
-            {
-                if(products.getProductName().equals(product8.getText()))
-                {
-                    selectedProducts.add(products);
-                }
-            }
-
-        });
-
+        //Cancel button
         cancel.addActionListener((ActionEvent e) ->
                 {
                     price.setText("£");
                     selectedProducts.clear();
                 });
 
+
+        //Order button
         order.addActionListener((ActionEvent e) ->
         {
             //the order the required parameters are (customer, product1...)
             if(!selectedProducts.isEmpty())
             {
                 Orders orders = new Orders(customersJake, selectedProducts);
+                String listedOrders = "";
+
+                for(Products products: selectedProducts)
+                {
+                    listedOrders += products.getProductName() + " £" + products.getPrice() + "\n";
+                }
+
+
+                JOptionPane.showMessageDialog(null, "Order Successful: " + customersJake.getName() + "\n"
+                + listedOrders + "\n" + "Grand total: " + price.getText());
             }
             price.setText("£");
             selectedProducts.clear();
@@ -259,32 +179,31 @@ public class UI
 
     public String getButtonData()
     {
+        JDBC jdbc = new JDBC();
 
 
-        try
-        {
-            //Register JDBC driver
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            String sqlRetreiveData = "SELECT * FROM products;";
 
-
-            statement = connection.createStatement();
-            String sqlRetreiveData;
-
-            //Database update for adding order
-            sqlRetreiveData = "SELECT * FROM products;";
-
-            ResultSet resultSet = statement.executeQuery(sqlRetreiveData);
+            ResultSet resultSet = jdbc.runSQLQuery(sqlRetreiveData);
 
             int i = 0;
-            while (resultSet.next())
+
+            try
             {
-                //We will use the text from the tooltip for the price, this stops us needing to make a second query
-                buttonArrayList.get(i).setToolTipText(resultSet.getString("price"));
-                buttonArrayList.get(i).setText(resultSet.getString("name"));
-                buttonArrayList.get(i).setOpaque(true);
-                buttonArrayList.get(i).setBackground(Color.ORANGE);
-                i++;
+                while (resultSet.next())
+                {
+                    //We will use the text from the tooltip for the price, this stops us needing to make a second query
+                    buttonArrayList.get(i).setToolTipText(resultSet.getString("price"));
+                    buttonArrayList.get(i).setText(resultSet.getString("name"));
+                    buttonArrayList.get(i).setText(buttonArrayList.get(i).getText() + " £" + resultSet.getString("price"));
+                    buttonArrayList.get(i).setOpaque(true);
+                    buttonArrayList.get(i).setBackground(Color.ORANGE);
+                    i++;
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
             }
             for(JButton button: buttonArrayList)
             {
@@ -295,20 +214,6 @@ public class UI
                     button.setEnabled(false);
                 }
             }
-
-            //close connections
-            statement.close();
-            connection.close();
-
-        }catch (Exception e)
-        {
-
-        }
-
-
-
-
-
 
         return "";
     }
