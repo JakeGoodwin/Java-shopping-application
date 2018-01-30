@@ -11,11 +11,95 @@ import javax.swing.*;
 public class UI
 {
 
-    Customers customersJake = new Customers("Jake Goodwin", "TK19 QMN", 13);
+
 
     ArrayList<JButton> buttonArrayList = new ArrayList<>();
     ArrayList<Products> selectedProducts = new ArrayList<>();
     ArrayList<Products> productsArrayList = new ArrayList<>();
+    Customers selectedCustomer = null;
+
+
+    public void customerInterface(ArrayList<Customers> customers)
+    {
+
+        JFrame frame= new JFrame("Select customer");
+        JPanel top = new JPanel();
+        JPanel middle = new JPanel();
+        JPanel bottom = new JPanel();
+
+        top.setLayout(new GridLayout(0, 1));
+        middle.setLayout(new GridLayout(0, 1));
+        bottom.setLayout(new GridLayout(0, 1));
+
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton selectCustomer = new JButton();
+        JLabel address = new JLabel();
+        JComboBox customerList = new JComboBox();
+
+
+        ActionListener listener = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+                for( Customers selected : customers)
+                {
+                    if(customerList.getSelectedItem().equals(selected.getName()))
+                    {
+                        selectedCustomer = selected;
+                        address.setFont(new Font("Serif", Font.BOLD, 16));
+                        address.setText(selected.getName() + "\n " + selected.getHouseNumber() + "\n "  + selected.getPostcode());
+                    }
+                }
+
+
+            }
+        };
+
+        top.add(BorderLayout.CENTER, customerList);
+        middle.add(BorderLayout.CENTER, address );
+        bottom.add(BorderLayout.CENTER, selectCustomer);
+
+
+
+        frame.getContentPane().add(BorderLayout.NORTH, top);
+        frame.getContentPane().add(BorderLayout.CENTER, middle);
+        frame.getContentPane().add(BorderLayout.SOUTH, bottom);
+
+
+        customerList.addActionListener(listener);
+
+
+
+        for (Customers customer : customers)
+        {
+            customerList.addItem(customer.getName());
+
+        }
+
+        selectCustomer.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            setUpUserInterface();
+
+        });
+
+
+
+
+
+
+
+
+        frame.setSize(300, 300);
+        frame.setLocation(400, 300);
+
+        frame.setVisible(true);
+
+    }
 
 
     //load up user interface
@@ -43,7 +127,6 @@ public class UI
         frame.getContentPane().add(BorderLayout.CENTER, buttonPanel);
         frame.getContentPane().add(BorderLayout.SOUTH, orderPanel);
 
-        //frame.setLayout(new GridLayout(0,3));
         frame.setSize(700, 600);
         frame.setLocation(400, 300);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +150,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
+
+
                 int position = e.getActionCommand().lastIndexOf("£");
 
 
@@ -150,7 +235,7 @@ public class UI
             //the order the required parameters are (customer, product1...)
             if(!selectedProducts.isEmpty())
             {
-                Orders orders = new Orders(customersJake, selectedProducts);
+                Orders orders = new Orders(selectedCustomer, selectedProducts);
                 String listedOrders = "";
 
                 for(Products products: selectedProducts)
@@ -159,7 +244,7 @@ public class UI
                 }
 
 
-                JOptionPane.showMessageDialog(null, "Order Successful: " + customersJake.getName() + "\n"
+                JOptionPane.showMessageDialog(null, "Order Successful: " + selectedCustomer.getName() + "\n"
                 + listedOrders + "\n" + "Grand total: " + price.getText());
             }
             price.setText("£");
@@ -193,11 +278,20 @@ public class UI
                 while (resultSet.next())
                 {
                     //We will use the text from the tooltip for the price, this stops us needing to make a second query
-                    buttonArrayList.get(i).setToolTipText(resultSet.getString("price"));
+
                     buttonArrayList.get(i).setText(resultSet.getString("name"));
                     buttonArrayList.get(i).setText(buttonArrayList.get(i).getText() + " £" + resultSet.getString("price"));
                     buttonArrayList.get(i).setOpaque(true);
                     buttonArrayList.get(i).setBackground(Color.ORANGE);
+                    String stock = resultSet.getString("stock");
+                    buttonArrayList.get(i).setToolTipText(stock);
+                    if(Integer.parseInt(stock) < 1)
+                    {
+                        buttonArrayList.get(i).setBackground(Color.RED);
+                        buttonArrayList.get(i).setEnabled(false);
+                    }
+
+
                     i++;
                 }
             }

@@ -7,9 +7,17 @@ public class Main
     public static void main(String args[])
     {
 
-        System.out.println(String.format("%.2f", 2343.23554354234));
+        ArrayList<Customers> customersArrayList = new ArrayList<>();
         UI userInterface = new UI();
-        userInterface.setUpUserInterface();
+
+
+        customersArrayList.add(new Customers("Jake Goodwin", "TK19 QMN", 13));
+        customersArrayList.add(new Customers("Michael Smith", "MN22 LNS", 66));
+        customersArrayList.add(new Customers("David Schmok", "XM4 LS4", 123));
+
+
+        userInterface.customerInterface(customersArrayList);
+        //userInterface.setUpUserInterface();
 
         //create customers to make orders
         //Customers customersMichael = new Customers("Michael Smith", "MNS5 2TP", 9);
