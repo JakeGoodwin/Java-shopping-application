@@ -385,11 +385,28 @@ public class UI
         //Cancel button
         addCustomer.addActionListener((ActionEvent e) ->
         {
-            String sql = String.format("INSERT INTO customers (name, postCode, houseNumber) VALUES (\'%s\', \'%s\', \'%s\');",
-                    nameText.getText(), postCodeText.getText(), numberText.getText());
-            jdbc.runSQLUpdate(sql);
-            frame.setVisible(false);
-            customerInterface();
+            //Very crude way to sanitise text boxes to prevent sql injection
+            if(nameText.getText().contains("\'") || nameText.getText().contains("\\") || nameText.getText().contains(";"))
+            {
+                nameText.setText("");
+            }
+            if(numberText.getText().contains("\"")  || numberLabel.getText().contains("\\") || numberText.getText().contains(";"))
+            {
+                numberText.setText("");
+            }
+            if(postCodeText.getText().contains("\"")  || postCodeText.getText().contains("\\") || postCodeText.getText().contains(";"))
+            {
+                postCodeText.setText("");
+
+            }
+            else if(!nameText.getText().isEmpty() && !numberText.getText().isEmpty() && !postCodeText.getText().isEmpty())
+            {
+                String sql = String.format("INSERT INTO customers (name, postCode, houseNumber) VALUES (\'%s\', \'%s\', \'%s\');",
+                        nameText.getText(), postCodeText.getText(), numberText.getText());
+                jdbc.runSQLUpdate(sql);
+                frame.setVisible(false);
+                customerInterface();
+            }
 
         });
 

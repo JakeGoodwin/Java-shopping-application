@@ -15,8 +15,8 @@
       <file leaf-file-name="Products.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Products.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="33" column="17" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="33" selection-end-column="17" />
+            <state relative-caret-position="194">
+              <caret line="22" column="99" lean-forward="true" selection-start-line="22" selection-start-column="99" selection-end-line="22" selection-end-column="99" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1639#1640#0" expanded="true" />
@@ -35,8 +35,8 @@
                 <element signature="e#2203#2204#0" expanded="true" />
                 <element signature="e#2249#2250#0" expanded="true" />
                 <element signature="e#2283#2284#0" expanded="true" />
-                <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-                <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+                <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+                <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
               </folding>
             </state>
           </provider>
@@ -45,8 +45,8 @@
       <file leaf-file-name="JDBC.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="58">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -78,8 +78,8 @@
       <file leaf-file-name="Orders.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Orders.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-390">
-              <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+            <state relative-caret-position="348">
+              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1517217318543" expanded="true" signature="1761:1825" ph="INSERT INTO order_product... " />
@@ -113,11 +113,11 @@
       <file leaf-file-name="UI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="261">
+              <caret line="395" column="13" lean-forward="true" selection-start-line="395" selection-start-column="13" selection-end-line="395" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1517390861772" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
+                <marker date="1517395374933" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
               </folding>
             </state>
           </provider>
@@ -155,9 +155,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/Customers.java" />
         <option value="$PROJECT_DIR$/src/Orders.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/JDBC.java" />
         <option value="$PROJECT_DIR$/src/Products.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/UI.java" />
       </list>
     </option>
@@ -355,15 +355,16 @@
       <workItem from="1516701262868" duration="27775000" />
       <workItem from="1516954154184" duration="8906000" />
       <workItem from="1517237612850" duration="11463000" />
-      <workItem from="1517386491485" duration="4848000" />
+      <workItem from="1517386491485" duration="6823000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57968000" />
+    <option name="totallyTimeSpent" value="59943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -374,7 +375,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20689656" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20689656" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -429,8 +430,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -501,7 +502,7 @@
           <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517390861772" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
+            <marker date="1517395374933" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -528,8 +529,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -600,7 +601,7 @@
           <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517390861772" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
+            <marker date="1517395374933" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -627,8 +628,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -691,7 +692,7 @@
           <caret line="294" column="45" lean-forward="true" selection-start-line="294" selection-start-column="45" selection-end-line="294" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517390861772" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
+            <marker date="1517395374933" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -726,8 +727,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -806,8 +807,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -886,8 +887,8 @@
             <element signature="e#2203#2204#0" expanded="true" />
             <element signature="e#2249#2250#0" expanded="true" />
             <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
@@ -979,38 +980,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/JDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="58">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Products.java">
+    <entry file="file://$PROJECT_DIR$/src/Orders.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="33" column="17" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="33" selection-end-column="17" />
+        <state relative-caret-position="348">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1639#1640#0" expanded="true" />
-            <element signature="e#1678#1679#0" expanded="true" />
-            <element signature="e#1727#1728#0" expanded="true" />
-            <element signature="e#1773#1774#0" expanded="true" />
-            <element signature="e#1815#1816#0" expanded="true" />
-            <element signature="e#1849#1850#0" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1953#1954#0" expanded="true" />
-            <element signature="e#1994#1995#0" expanded="true" />
-            <element signature="e#2030#2031#0" expanded="true" />
-            <element signature="e#2089#2090#0" expanded="true" />
-            <element signature="e#2139#2140#0" expanded="true" />
-            <element signature="e#2175#2176#0" expanded="true" />
-            <element signature="e#2203#2204#0" expanded="true" />
-            <element signature="e#2249#2250#0" expanded="true" />
-            <element signature="e#2283#2284#0" expanded="true" />
-            <marker date="1517224402642" expanded="true" signature="626:666" ph="SELECT name products" />
-            <marker date="1517224402642" expanded="true" signature="626:696" ph="SELECT name products" />
+            <marker date="1517217318543" expanded="true" signature="1761:1825" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1761:1866" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1761:1868" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1761:1872" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1761:1999" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1761:2001" ph="INSERT INTO order_product... " />
+            <marker date="1517217318543" expanded="true" signature="1829:1864" ph="select MAX(o... orders" />
+            <marker date="1517217318543" expanded="true" signature="1925:1997" ph="select id FR... products" />
+            <marker date="1517217318543" expanded="true" signature="2156:2192" ph="UPDATE products... " />
+            <marker date="1517217318543" expanded="true" signature="2156:2193" ph="UPDATE products... " />
+            <marker date="1517217318543" expanded="true" signature="2156:2295" ph="UPDATE products... " />
           </folding>
         </state>
       </provider>
@@ -1036,44 +1040,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Orders.java">
+    <entry file="file://$PROJECT_DIR$/src/Products.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        <state relative-caret-position="194">
+          <caret line="22" column="99" lean-forward="true" selection-start-line="22" selection-start-column="99" selection-end-line="22" selection-end-column="99" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517217318543" expanded="true" signature="1761:1825" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1761:1866" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1761:1868" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1761:1872" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1761:1999" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1761:2001" ph="INSERT INTO order_product... " />
-            <marker date="1517217318543" expanded="true" signature="1829:1864" ph="select MAX(o... orders" />
-            <marker date="1517217318543" expanded="true" signature="1925:1997" ph="select id FR... products" />
-            <marker date="1517217318543" expanded="true" signature="2156:2192" ph="UPDATE products... " />
-            <marker date="1517217318543" expanded="true" signature="2156:2193" ph="UPDATE products... " />
-            <marker date="1517217318543" expanded="true" signature="2156:2295" ph="UPDATE products... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1639#1640#0" expanded="true" />
+            <element signature="e#1678#1679#0" expanded="true" />
+            <element signature="e#1727#1728#0" expanded="true" />
+            <element signature="e#1773#1774#0" expanded="true" />
+            <element signature="e#1815#1816#0" expanded="true" />
+            <element signature="e#1849#1850#0" expanded="true" />
+            <element signature="e#1907#1908#0" expanded="true" />
+            <element signature="e#1953#1954#0" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2030#2031#0" expanded="true" />
+            <element signature="e#2089#2090#0" expanded="true" />
+            <element signature="e#2139#2140#0" expanded="true" />
+            <element signature="e#2175#2176#0" expanded="true" />
+            <element signature="e#2203#2204#0" expanded="true" />
+            <element signature="e#2249#2250#0" expanded="true" />
+            <element signature="e#2283#2284#0" expanded="true" />
+            <marker date="1517395160196" expanded="true" signature="626:666" ph="SELECT name products" />
+            <marker date="1517395160196" expanded="true" signature="626:667" ph="SELECT name products" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="395" column="13" lean-forward="true" selection-start-line="395" selection-start-column="13" selection-end-line="395" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517390861772" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
+            <marker date="1517395374933" expanded="true" signature="8817:8839" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
