@@ -17,7 +17,7 @@ public class Orders
         JDBC jdbc = new JDBC();
         this.customer = customer;
 
-        String sqlInsertOrder = String.format("INSERT INTO orders (CustomerName, postCode, number) VALUES (\'%s\', \'%s\', \'%s\');",
+        String sqlInsertOrder = String.format("INSERT INTO orders (customerName, postCode, number) VALUES (\'%s\', \'%s\', \'%s\');",
                     customer.getName(), customer.getPostcode(), customer.getHouseNumber());
 
         jdbc.runSQLUpdate(sqlInsertOrder);

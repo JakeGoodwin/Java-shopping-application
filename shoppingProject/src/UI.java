@@ -48,9 +48,8 @@ public class UI
 
         JComboBox customerList = new JComboBox();
 
-
         ArrayList<Customers> customers = new ArrayList<>();
-
+        selectCustomer.setEnabled(false);
 
         ActionListener listener = new ActionListener()
         {
@@ -65,6 +64,7 @@ public class UI
                         selectedCustomer = selected;
                         address.setFont(new Font("Serif", Font.BOLD, 30));
                         address.setText("    " + selected.getName() + "\n    " + selected.getHouseNumber() + "\n    " + selected.getPostcode());
+                        selectCustomer.setEnabled(true);
                     }
                 }
 
@@ -378,7 +378,6 @@ public class UI
 
         frame.setSize(350, 250);
         frame.setLocation(400, 300);
-
         frame.setVisible(true);
 
 

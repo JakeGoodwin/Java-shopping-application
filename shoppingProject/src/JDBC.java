@@ -8,7 +8,7 @@ public class JDBC
     static final String DB_URL = "jdbc:mysql://localhost/shop";
 
     static final String USER = "root";
-    static final String PASS = "password1";
+    static final String PASS = "password";
 
     Connection connection = null;
     Statement statement = null;
