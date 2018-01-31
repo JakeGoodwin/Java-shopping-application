@@ -21,8 +21,9 @@ public class Main
 
         //create customers to make orders
         //Customers customersMichael = new Customers("Michael Smith", "MNS5 2TP", 9);
+	//
+	//Terrel added a comment xxx
 
     }
-
 
 }
