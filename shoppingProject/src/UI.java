@@ -7,36 +7,49 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 public class UI
 {
 
-
-
     ArrayList<JButton> buttonArrayList = new ArrayList<>();
     ArrayList<Products> selectedProducts = new ArrayList<>();
     ArrayList<Products> productsArrayList = new ArrayList<>();
+    ArrayList<Customers> customersArrayList = new ArrayList<>();
     Customers selectedCustomer = null;
+    JDBC jdbc = new JDBC();
 
 
-    public void customerInterface(ArrayList<Customers> customers)
+    public void customerInterface()
     {
 
-        JFrame frame= new JFrame("Select customer");
+        JFrame frame = new JFrame("Select customer");
         JPanel top = new JPanel();
         JPanel middle = new JPanel();
         JPanel bottom = new JPanel();
 
         top.setLayout(new GridLayout(0, 1));
         middle.setLayout(new GridLayout(0, 1));
-        bottom.setLayout(new GridLayout(0, 1));
+        bottom.setLayout(new GridLayout(0, 2));
 
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JButton selectCustomer = new JButton();
-        JLabel address = new JLabel();
+        JButton addCustomer = new JButton();
+        selectCustomer.setText("Select Customer");
+        addCustomer.setText("Add Customer");
+        JTextArea address = new JTextArea();
+        address.setEditable(false);
+
+        selectCustomer.setBackground(Color.darkGray);
+        address.setBackground(Color.LIGHT_GRAY);
+
         JComboBox customerList = new JComboBox();
+
+
+        ArrayList<Customers> customers = new ArrayList<>();
 
 
         ActionListener listener = new ActionListener()
@@ -45,13 +58,13 @@ public class UI
             public void actionPerformed(ActionEvent e)
             {
 
-                for( Customers selected : customers)
+                for (Customers selected : customers)
                 {
-                    if(customerList.getSelectedItem().equals(selected.getName()))
+                    if (customerList.getSelectedItem().equals(selected.getName()))
                     {
                         selectedCustomer = selected;
-                        address.setFont(new Font("Serif", Font.BOLD, 16));
-                        address.setText(selected.getName() + "\n " + selected.getHouseNumber() + "\n "  + selected.getPostcode());
+                        address.setFont(new Font("Serif", Font.BOLD, 30));
+                        address.setText("    " + selected.getName() + "\n    " + selected.getHouseNumber() + "\n    " + selected.getPostcode());
                     }
                 }
 
@@ -60,9 +73,9 @@ public class UI
         };
 
         top.add(BorderLayout.CENTER, customerList);
-        middle.add(BorderLayout.CENTER, address );
+        middle.add(BorderLayout.CENTER, address);
         bottom.add(BorderLayout.CENTER, selectCustomer);
-
+        bottom.add(BorderLayout.CENTER, addCustomer);
 
 
         frame.getContentPane().add(BorderLayout.NORTH, top);
@@ -72,13 +85,25 @@ public class UI
 
         customerList.addActionListener(listener);
 
+        String customerDataSQL = "Select * FROM customers;";
+        JDBC jdbc = new JDBC();
+        ResultSet resultSet = jdbc.runSQLQuery(customerDataSQL);
 
-
-        for (Customers customer : customers)
+        String customerToAdd = "";
+        try
         {
-            customerList.addItem(customer.getName());
-
+            while (resultSet.next())
+            {
+                customerToAdd = resultSet.getString("name");
+                customerList.addItem(customerToAdd);
+                customers.add(new Customers(resultSet.getString("name"), resultSet.getString("postCode"), Integer.parseInt(resultSet.getString("houseNumber"))));
+            }
         }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
 
         selectCustomer.addActionListener((ActionEvent e) ->
         {
@@ -87,11 +112,12 @@ public class UI
 
         });
 
+        addCustomer.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            addCustomerInterface();
 
-
-
-
-
+        });
 
 
         frame.setSize(300, 300);
@@ -118,10 +144,9 @@ public class UI
         JPanel orderPanel = new JPanel();
 
 
+        buttonPanel.setLayout(new GridLayout(0, 2));
 
-        buttonPanel.setLayout(new GridLayout(0,2));
-
-        orderPanel.setLayout(new GridLayout(0,3));
+        orderPanel.setLayout(new GridLayout(0, 3));
 
 
         frame.getContentPane().add(BorderLayout.CENTER, buttonPanel);
@@ -155,12 +180,12 @@ public class UI
                 int position = e.getActionCommand().lastIndexOf("£");
 
 
-                price.setText("£" + String.format("%.2f",Double.parseDouble(price.getText().replace('£', '0'))
-                        + (Double.parseDouble(e.getActionCommand().substring(position+1)))));
+                price.setText("£" + String.format("%.2f", Double.parseDouble(price.getText().replace('£', '0'))
+                        + (Double.parseDouble(e.getActionCommand().substring(position + 1)))));
 
                 for (Products products : productsArrayList)
                 {
-                    if(products.getProductName().equals(e.getActionCommand().substring(0, position-1)))
+                    if (products.getProductName().equals(e.getActionCommand().substring(0, position - 1)))
                     {
                         selectedProducts.add(products);
                     }
@@ -168,7 +193,6 @@ public class UI
 
             }
         };
-
 
 
         //Stops us needing to have multiple listeners for a very similar action
@@ -191,10 +215,8 @@ public class UI
         buttonArrayList.add(product8);
 
 
-
         final JButton cancel = new JButton("Cancel and clear");
         final JButton order = new JButton("Place order");
-
 
 
         //final JTextArea textArea1 = new JTextArea(10, 20);
@@ -214,8 +236,6 @@ public class UI
         orderPanel.add(BorderLayout.EAST, order);
 
 
-
-
         //frame.getContentPane().add(BorderLayout.EAST, textArea1);
         final JButton button = new JButton("Click me");
         //frame.getContentPane().add(BorderLayout.SOUTH, button);
@@ -223,39 +243,34 @@ public class UI
 
         //Cancel button
         cancel.addActionListener((ActionEvent e) ->
-                {
-                    price.setText("£");
-                    selectedProducts.clear();
-                });
+        {
+            price.setText("£");
+            selectedProducts.clear();
+        });
 
 
         //Order button
         order.addActionListener((ActionEvent e) ->
         {
             //the order the required parameters are (customer, product1...)
-            if(!selectedProducts.isEmpty())
+            if (!selectedProducts.isEmpty())
             {
                 Orders orders = new Orders(selectedCustomer, selectedProducts);
                 String listedOrders = "";
 
-                for(Products products: selectedProducts)
+                for (Products products : selectedProducts)
                 {
                     listedOrders += products.getProductName() + " £" + products.getPrice() + "\n";
                 }
 
 
                 JOptionPane.showMessageDialog(null, "Order Successful: " + selectedCustomer.getName() + "\n"
-                + listedOrders + "\n" + "Grand total: " + price.getText());
+                        + listedOrders + "\n" + "Grand total: " + price.getText());
             }
             price.setText("£");
             selectedProducts.clear();
 
         });
-
-
-
-
-
 
 
         frame.setVisible(true);
@@ -264,55 +279,128 @@ public class UI
 
     public String getButtonData()
     {
-        JDBC jdbc = new JDBC();
 
 
-            String sqlRetreiveData = "SELECT * FROM products;";
+        String sqlRetreiveData = "SELECT * FROM products;";
 
-            ResultSet resultSet = jdbc.runSQLQuery(sqlRetreiveData);
+        ResultSet resultSet = jdbc.runSQLQuery(sqlRetreiveData);
 
-            int i = 0;
+        int i = 0;
 
-            try
+        try
+        {
+            while (resultSet.next())
             {
-                while (resultSet.next())
+                //We will use the text from the tooltip for the price, this stops us needing to make a second query
+
+                buttonArrayList.get(i).setText(resultSet.getString("name"));
+                buttonArrayList.get(i).setText(buttonArrayList.get(i).getText() + " £" + resultSet.getString("price"));
+                buttonArrayList.get(i).setOpaque(true);
+                buttonArrayList.get(i).setBackground(Color.ORANGE);
+                String stock = resultSet.getString("stock");
+                buttonArrayList.get(i).setToolTipText(stock);
+                if (Integer.parseInt(stock) < 1)
                 {
-                    //We will use the text from the tooltip for the price, this stops us needing to make a second query
-
-                    buttonArrayList.get(i).setText(resultSet.getString("name"));
-                    buttonArrayList.get(i).setText(buttonArrayList.get(i).getText() + " £" + resultSet.getString("price"));
-                    buttonArrayList.get(i).setOpaque(true);
-                    buttonArrayList.get(i).setBackground(Color.ORANGE);
-                    String stock = resultSet.getString("stock");
-                    buttonArrayList.get(i).setToolTipText(stock);
-                    if(Integer.parseInt(stock) < 1)
-                    {
-                        buttonArrayList.get(i).setBackground(Color.RED);
-                        buttonArrayList.get(i).setEnabled(false);
-                    }
-
-
-                    i++;
+                    buttonArrayList.get(i).setBackground(Color.RED);
+                    buttonArrayList.get(i).setEnabled(false);
                 }
+
+
+                i++;
             }
-            catch (SQLException e)
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        for (JButton button : buttonArrayList)
+        {
+            if (button.getText().startsWith("Product"))
             {
-                e.printStackTrace();
+                button.setOpaque(true);
+                button.setBackground(Color.BLACK);
+                button.setEnabled(false);
             }
-            for(JButton button: buttonArrayList)
-            {
-                if (button.getText().startsWith("Product"))
-                {
-                    button.setOpaque(true);
-                    button.setBackground(Color.BLACK);
-                    button.setEnabled(false);
-                }
-            }
+        }
 
         return "";
     }
 
 
+    public void addCustomerInterface()
+    {
+        JFrame frame = new JFrame("Select customer");
+        JPanel top = new JPanel();
+        JPanel buttons = new JPanel();
+
+        top.setLayout(new GridLayout(6, 0));
+        buttons.setLayout(new GridLayout(0, 1));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton addCustomer = new JButton();
+        addCustomer.setText("Add customer");
+
+        JButton returnPrevious = new JButton();
+        returnPrevious.setText("Go back");
+
+        JLabel nameLabel = new JLabel();
+        nameLabel.setText("Customer Name:");
+        JTextArea nameText = new JTextArea();
+        nameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+
+
+        JLabel postCodeLabel = new JLabel();
+        postCodeLabel.setText("Customer Postcode:");
+        JTextArea postCodeText = new JTextArea();
+        postCodeLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        JLabel numberLabel = new JLabel();
+        numberLabel.setText("Customer house number:");
+        JTextArea numberText = new JTextArea();
+        numberLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        top.add(BorderLayout.NORTH, nameLabel);
+        top.add(BorderLayout.NORTH, nameText);
+
+        top.add(BorderLayout.CENTER, postCodeLabel);
+        top.add(BorderLayout.CENTER, postCodeText);
+
+        top.add(BorderLayout.SOUTH, numberLabel);
+        top.add(BorderLayout.SOUTH, numberText);
+
+        buttons.add(BorderLayout.CENTER, addCustomer);
+        buttons.add(BorderLayout.CENTER, returnPrevious);
+
+        frame.getContentPane().add(BorderLayout.NORTH, top);
+        frame.getContentPane().add(BorderLayout.SOUTH, buttons);
+
+
+        frame.setSize(350, 250);
+        frame.setLocation(400, 300);
+
+        frame.setVisible(true);
+
+
+        //Cancel button
+        addCustomer.addActionListener((ActionEvent e) ->
+        {
+            String sql = String.format("INSERT INTO customers (name, postCode, houseNumber) VALUES (\'%s\', \'%s\', \'%s\');",
+                    nameText.getText(), postCodeText.getText(), numberText.getText());
+            jdbc.runSQLUpdate(sql);
+            frame.setVisible(false);
+            customerInterface();
+
+        });
+
+        returnPrevious.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            customerInterface();
+        });
+
+
+    }
 
 
 }

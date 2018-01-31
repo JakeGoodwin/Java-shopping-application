@@ -16,7 +16,7 @@ public class Main
         customersArrayList.add(new Customers("David Schmok", "XM4 LS4", 123));
 
 
-        userInterface.customerInterface(customersArrayList);
+        userInterface.customerInterface();
         //userInterface.setUpUserInterface();
 
         //create customers to make orders
