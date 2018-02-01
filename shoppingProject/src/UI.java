@@ -1,11 +1,21 @@
 
 
+import javafx.scene.control.PasswordField;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Random;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -21,6 +31,103 @@ public class UI
     JDBC jdbc = new JDBC();
 
 
+
+
+
+    public void load()
+    {
+        JFrame frame = new JFrame("Sign in");
+
+        JPanel middle = new JPanel();
+
+        middle.setLayout(new GridLayout(4, 2));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton signIn = new JButton();
+        JLabel usernameLabel = new JLabel();
+        JLabel passwordLabel = new JLabel();
+        JTextArea usernameField = new JTextArea();
+        JPasswordField passwordField = new JPasswordField();
+
+
+        usernameLabel.setText("Username:");
+        passwordLabel.setText("Password:");
+        signIn.setText("Sign in");
+
+        middle.add(BorderLayout.NORTH, usernameLabel);
+        middle.add(BorderLayout.NORTH, usernameField);
+        middle.add(BorderLayout.NORTH, passwordLabel);
+        middle.add(BorderLayout.NORTH, passwordField);
+        frame.getContentPane().add(BorderLayout.NORTH, middle);
+        frame.getContentPane().add(BorderLayout.SOUTH, signIn);
+
+        frame.setSize(200, 200);
+        frame.setLocation(400, 300);
+
+        frame.setVisible(true);
+
+
+        //This method used is not greatly secure but works perfectly for my means
+        signIn.addActionListener((ActionEvent e) ->
+        {
+
+
+            String passwordToHash = new String(passwordField.getPassword());
+            String generatedPassword = null;
+            try {
+                // Create MessageDigest instance for MD5
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                //Add password bytes to digest
+                md.update(passwordToHash.getBytes());
+                //Get the hash's bytes
+                byte[] bytes = md.digest();
+                //This bytes[] has bytes in decimal format;
+                //Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++)
+                {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                //Get complete hashed password in hex format
+                generatedPassword = sb.toString();
+            }
+            catch (NoSuchAlgorithmException k)
+            {
+                k.printStackTrace();
+            }
+
+            String sqlPword = "SELECT password FROM users WHERE username = '" + usernameField.getText() + "';";
+            ResultSet resultSet = jdbc.runSQLQuery(sqlPword);
+
+            try
+            {
+                while (resultSet.next())
+                {
+                    if(resultSet.getString("password").equals(generatedPassword))
+                    {
+                        frame.setVisible(false);
+                        customerInterface();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Username or Password is incorrect");
+                    }
+                }
+            }
+            catch (SQLException m)
+            {
+                m.printStackTrace();
+            }
+
+
+
+
+        });
+
+
+
+    }
 
 
 
