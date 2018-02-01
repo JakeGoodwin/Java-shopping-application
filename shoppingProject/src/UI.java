@@ -72,6 +72,10 @@ public class UI
         signIn.addActionListener((ActionEvent e) ->
         {
 
+            if(usernameField.getText().contains("\'") || usernameField.getText().contains("\\") || usernameField.getText().contains(";"))
+            {
+                usernameField.setText("");
+            }
 
             String passwordToHash = new String(passwordField.getPassword());
             String generatedPassword = null;
