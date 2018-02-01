@@ -21,6 +21,9 @@ public class UI
     JDBC jdbc = new JDBC();
 
 
+
+
+
     public void customerInterface()
     {
 
@@ -31,15 +34,19 @@ public class UI
 
         top.setLayout(new GridLayout(0, 1));
         middle.setLayout(new GridLayout(0, 1));
-        bottom.setLayout(new GridLayout(0, 2));
+        bottom.setLayout(new GridLayout(0, 3));
 
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JButton selectCustomer = new JButton();
         JButton addCustomer = new JButton();
+        JButton addProduct = new JButton();
+
         selectCustomer.setText("Select Customer");
         addCustomer.setText("Add Customer");
+        addProduct.setText("Add product");
+
         JTextArea address = new JTextArea();
         address.setEditable(false);
 
@@ -76,6 +83,7 @@ public class UI
         middle.add(BorderLayout.CENTER, address);
         bottom.add(BorderLayout.CENTER, selectCustomer);
         bottom.add(BorderLayout.CENTER, addCustomer);
+        bottom.add(BorderLayout.CENTER, addProduct);
 
 
         frame.getContentPane().add(BorderLayout.NORTH, top);
@@ -119,6 +127,13 @@ public class UI
 
         });
 
+        addProduct.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            addProductInterface();
+
+        });
+
 
         frame.setSize(300, 300);
         frame.setLocation(400, 300);
@@ -131,13 +146,6 @@ public class UI
     //load up user interface
     public void setUpUserInterface()
     {
-
-        productsArrayList.add(new Products("Samsung TV", 200, 799.99));
-        productsArrayList.add(new Products("Iphone X", 11, 999.99));
-        productsArrayList.add(new Products("Left 4 Dead", 55, 39.99));
-        productsArrayList.add(new Products("DELL Laptop", 11, 285.99));
-        productsArrayList.add(new Products("TH Coat", 3, 69.99));
-
 
         JFrame frame = new JFrame("Online Shop");
         JPanel buttonPanel = new JPanel();
@@ -291,7 +299,11 @@ public class UI
         {
             while (resultSet.next())
             {
-                //We will use the text from the tooltip for the price, this stops us needing to make a second query
+
+                //Allows products to be added dynamically
+                productsArrayList.add(new Products(resultSet.getString("name"),
+                        Integer.parseInt(resultSet.getString("stock")),
+                        Double.parseDouble(resultSet.getString("price"))));
 
                 buttonArrayList.get(i).setText(resultSet.getString("name"));
                 buttonArrayList.get(i).setText(buttonArrayList.get(i).getText() + " £" + resultSet.getString("price"));
@@ -389,7 +401,7 @@ public class UI
             {
                 nameText.setText("");
             }
-            if(numberText.getText().contains("\"")  || numberLabel.getText().contains("\\") || numberText.getText().contains(";"))
+            if(numberText.getText().contains("\"")  || numberText.getText().contains("\\") || numberText.getText().contains(";"))
             {
                 numberText.setText("");
             }
@@ -402,6 +414,102 @@ public class UI
             {
                 String sql = String.format("INSERT INTO customers (name, postCode, houseNumber) VALUES (\'%s\', \'%s\', \'%s\');",
                         nameText.getText(), postCodeText.getText(), numberText.getText());
+                jdbc.runSQLUpdate(sql);
+                frame.setVisible(false);
+                customerInterface();
+            }
+
+        });
+
+        returnPrevious.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            customerInterface();
+        });
+
+
+    }
+
+    public void addProductInterface()
+    {
+        JFrame frame = new JFrame("Add product");
+        JPanel top = new JPanel();
+        JPanel buttons = new JPanel();
+
+        top.setLayout(new GridLayout(6, 0));
+        buttons.setLayout(new GridLayout(0, 1));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton addProduct = new JButton();
+        addProduct.setText("Add product");
+
+        JButton returnPrevious = new JButton();
+        returnPrevious.setText("Go back");
+
+        JLabel nameLabel = new JLabel();
+        nameLabel.setText("Product Name:");
+        JTextArea nameText = new JTextArea();
+        nameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+
+
+        JLabel stockLabel = new JLabel();
+        stockLabel.setText("Stock to add:");
+        JTextArea stockText = new JTextArea();
+        stockText.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        JLabel priceLabel = new JLabel();
+        priceLabel.setText("Price:");
+        JTextArea priceText = new JTextArea();
+        priceText.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        top.add(BorderLayout.NORTH, nameLabel);
+        top.add(BorderLayout.NORTH, nameText);
+
+        top.add(BorderLayout.CENTER, stockLabel);
+        top.add(BorderLayout.CENTER, stockText);
+
+        top.add(BorderLayout.SOUTH, priceLabel);
+        top.add(BorderLayout.SOUTH, priceText);
+
+        buttons.add(BorderLayout.CENTER, addProduct);
+        buttons.add(BorderLayout.CENTER, returnPrevious);
+
+        frame.getContentPane().add(BorderLayout.NORTH, top);
+        frame.getContentPane().add(BorderLayout.SOUTH, buttons);
+
+
+        frame.setSize(350, 250);
+        frame.setLocation(400, 300);
+        frame.setVisible(true);
+
+
+        //Cancel button
+        addProduct.addActionListener((ActionEvent e) ->
+        {
+            //Very crude way to sanitise text boxes to prevent sql injection
+            if(nameText.getText().contains("\'") || nameText.getText().contains("\\") || nameText.getText().contains(";"))
+            {
+                nameText.setText("");
+            }
+            if(priceText.getText().contains("\"")  || priceText.getText().contains("\\") || priceText.getText().contains(";"))
+            {
+                priceText.setText("");
+            }
+            if(priceText.getText().contains("£"))
+            {
+                //does this actually work? it could cause problems getting the value out in the future
+                priceText.setText(priceText.getText().replace('£', ' '));
+            }
+            if(stockText.getText().contains("\"")  || stockText.getText().contains("\\") || stockText.getText().contains(";"))
+            {
+                stockText.setText("");
+
+            }
+            else if(!nameText.getText().isEmpty() && !priceText.getText().isEmpty() && !stockText.getText().isEmpty())
+            {
+                String sql = String.format("INSERT INTO products (name, stock, price) VALUES (\'%s\', \'%s\', \'%s\');",
+                        nameText.getText(), stockText.getText(), priceText.getText());
                 jdbc.runSQLUpdate(sql);
                 frame.setVisible(false);
                 customerInterface();
