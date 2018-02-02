@@ -28,7 +28,9 @@ public class UI
     ArrayList<Products> productsArrayList = new ArrayList<>();
     ArrayList<Customers> customersArrayList = new ArrayList<>();
     Customers selectedCustomer = null;
+    int privilege = 0;
     JDBC jdbc = new JDBC();
+    String username = "";
 
 
 
@@ -45,6 +47,7 @@ public class UI
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JButton signIn = new JButton();
+        JButton newUser = new JButton();
         JLabel usernameLabel = new JLabel();
         JLabel passwordLabel = new JLabel();
         JTextArea usernameField = new JTextArea();
@@ -54,18 +57,28 @@ public class UI
         usernameLabel.setText("Username:");
         passwordLabel.setText("Password:");
         signIn.setText("Sign in");
+        newUser.setText("Create new user");
 
         middle.add(BorderLayout.NORTH, usernameLabel);
         middle.add(BorderLayout.NORTH, usernameField);
         middle.add(BorderLayout.NORTH, passwordLabel);
         middle.add(BorderLayout.NORTH, passwordField);
         frame.getContentPane().add(BorderLayout.NORTH, middle);
-        frame.getContentPane().add(BorderLayout.SOUTH, signIn);
+        frame.getContentPane().add(BorderLayout.CENTER, signIn);
+        frame.getContentPane().add(BorderLayout.SOUTH, newUser);
 
         frame.setSize(200, 200);
         frame.setLocation(400, 300);
 
         frame.setVisible(true);
+
+
+        newUser.addActionListener((ActionEvent e) ->
+        {
+            frame.setVisible(false);
+            newUserInterface();
+        });
+
 
 
         //This method used is not greatly secure but works perfectly for my means
@@ -101,7 +114,7 @@ public class UI
                 k.printStackTrace();
             }
 
-            String sqlPword = "SELECT password FROM users WHERE username = '" + usernameField.getText() + "';";
+            String sqlPword = "SELECT * FROM users WHERE username = '" + usernameField.getText() + "';";
             ResultSet resultSet = jdbc.runSQLQuery(sqlPword);
 
             try
@@ -110,8 +123,33 @@ public class UI
                 {
                     if(resultSet.getString("password").equals(generatedPassword))
                     {
-                        frame.setVisible(false);
-                        customerInterface();
+                        privilege = Integer.parseInt(resultSet.getString("level"));
+                        if(privilege == 1)
+                        {
+                            frame.setVisible(false);
+                            customerInterface();
+                        }
+                        else
+                        {
+
+
+                            String getUserSql = "Select * FROM customers where username = '" + username + "';";
+                            JDBC jdbc = new JDBC();
+                            ResultSet resultSet1 = jdbc.runSQLQuery(getUserSql);
+
+
+                                while (resultSet1.next())
+                                {
+                                  selectedCustomer = new Customers(resultSet1.getString("name"),resultSet1.getString("postCode")
+                                          ,Integer.parseInt(resultSet1.getString("houseNumber")));
+                                }
+
+                            frame.setVisible(false);
+                            setUpUserInterface();
+
+                        }
+
+
                     }
                     else
                     {
@@ -125,13 +163,131 @@ public class UI
             }
 
 
-
-
         });
 
-
-
     }
+
+    //when adding a new user the person will be made to put in their address details as well by linking to new customer
+    //interface
+    public void newUserInterface()
+    {
+
+
+        JFrame frame = new JFrame("Add user");
+        JPanel top = new JPanel();
+        JPanel buttons = new JPanel();
+
+        top.setLayout(new GridLayout(6, 0));
+        buttons.setLayout(new GridLayout(0, 1));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JButton addUser = new JButton();
+        addUser.setText("Add user");
+
+        JButton returnPrevious = new JButton();
+        returnPrevious.setText("Go back");
+
+        JLabel usernameLabel = new JLabel();
+        usernameLabel.setText("Username:");
+        JTextArea usernameText = new JTextArea();
+        usernameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+
+
+        JLabel passwordLabel = new JLabel();
+        passwordLabel.setText("Password:");
+        JPasswordField passwordField = new JPasswordField();
+
+        JLabel passwordVerificationLabel = new JLabel();
+        passwordLabel.setText("Enter password again:");
+        JPasswordField passwordVerificationField = new JPasswordField();
+
+
+
+        top.add(BorderLayout.NORTH, usernameLabel);
+        top.add(BorderLayout.NORTH, usernameText);
+
+        top.add(BorderLayout.CENTER, passwordLabel);
+        top.add(BorderLayout.CENTER, passwordField);
+
+        top.add(BorderLayout.SOUTH, passwordVerificationLabel);
+        top.add(BorderLayout.SOUTH, passwordVerificationField);
+
+        buttons.add(BorderLayout.CENTER, returnPrevious);
+        buttons.add(BorderLayout.SOUTH, addUser);
+
+        frame.getContentPane().add(BorderLayout.NORTH, top);
+        frame.getContentPane().add(BorderLayout.SOUTH, buttons);
+
+
+        frame.setSize(350, 250);
+        frame.setLocation(400, 300);
+        frame.setVisible(true);
+
+
+
+        //Cancel button
+        addUser.addActionListener((ActionEvent e) ->
+        {
+            //Very crude way to sanitise text boxes to prevent sql injection
+            if (usernameText.getText().contains("\'") || usernameText.getText().contains("\\") || usernameText.getText().contains(";"))
+            {
+                usernameText.setText("");
+            }
+            if (!(new String(passwordField.getPassword()).equals(new String(passwordVerificationField.getPassword()))))
+            {
+                JOptionPane.showMessageDialog(null, "Passwords do not match");
+            }
+            else if (!(usernameText.getText().isEmpty() && new String(passwordField.getPassword()).isEmpty() && new String(passwordVerificationField.getPassword()).isEmpty()))
+            {
+
+
+                String passwordToHash = new String(passwordField.getPassword());
+                String generatedPassword = null;
+                try
+                {
+
+
+                    // Create MessageDigest instance for MD5
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    //Add password bytes to digest
+                    md.update(passwordToHash.getBytes());
+                    //Get the hash's bytes
+                    byte[] bytes = md.digest();
+                    //This bytes[] has bytes in decimal format;
+                    //Convert it to hexadecimal format
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < bytes.length; i++)
+                    {
+                        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                    }
+                    //Get complete hashed password in hex format
+                    generatedPassword = sb.toString();
+
+
+                    String sql = String.format("INSERT INTO users (username, password, level) VALUES (\'%s\', \'%s\', \'%s\');",
+                            usernameText.getText(), generatedPassword, 0);
+                    username = usernameText.getText();
+                    jdbc.runSQLUpdate(sql);
+                    frame.setVisible(false);
+                    addCustomerInterface();
+
+
+                }
+                catch (NoSuchAlgorithmException k)
+                {
+                    k.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+
+
+
+
 
 
 
@@ -145,7 +301,7 @@ public class UI
 
         top.setLayout(new GridLayout(0, 1));
         middle.setLayout(new GridLayout(0, 1));
-        bottom.setLayout(new GridLayout(0, 3));
+        bottom.setLayout(new GridLayout(3, 1));
 
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -523,8 +679,8 @@ public class UI
             }
             else if(!nameText.getText().isEmpty() && !numberText.getText().isEmpty() && !postCodeText.getText().isEmpty())
             {
-                String sql = String.format("INSERT INTO customers (name, postCode, houseNumber) VALUES (\'%s\', \'%s\', \'%s\');",
-                        nameText.getText(), postCodeText.getText(), numberText.getText());
+                String sql = String.format("INSERT INTO customers (name, postCode, houseNumber, username) VALUES (\'%s\', \'%s\', \'%s\' , \'%s\');",
+                        nameText.getText(), postCodeText.getText(), numberText.getText(), username);
                 jdbc.runSQLUpdate(sql);
                 frame.setVisible(false);
                 customerInterface();
