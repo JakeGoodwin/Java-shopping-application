@@ -197,10 +197,12 @@ public class UI
         JLabel passwordLabel = new JLabel();
         passwordLabel.setText("Password:");
         JPasswordField passwordField = new JPasswordField();
+        passwordLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 
         JLabel passwordVerificationLabel = new JLabel();
-        passwordLabel.setText("Enter password again:");
+        passwordVerificationLabel.setText("Enter password again:");
         JPasswordField passwordVerificationField = new JPasswordField();
+        passwordVerificationLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 
 
 
@@ -622,6 +624,13 @@ public class UI
 
         JButton returnPrevious = new JButton();
         returnPrevious.setText("Go back");
+        buttons.add(BorderLayout.CENTER, returnPrevious);
+
+        if(privilege == 0)
+        {
+            returnPrevious.setVisible(false);
+            returnPrevious.setEnabled(false);
+        }
 
         JLabel nameLabel = new JLabel();
         nameLabel.setText("Customer Name:");
@@ -649,7 +658,6 @@ public class UI
         top.add(BorderLayout.SOUTH, numberText);
 
         buttons.add(BorderLayout.CENTER, addCustomer);
-        buttons.add(BorderLayout.CENTER, returnPrevious);
 
         frame.getContentPane().add(BorderLayout.NORTH, top);
         frame.getContentPane().add(BorderLayout.SOUTH, buttons);
@@ -660,7 +668,7 @@ public class UI
         frame.setVisible(true);
 
 
-        //Cancel button
+        //add customer button
         addCustomer.addActionListener((ActionEvent e) ->
         {
             //Very crude way to sanitise text boxes to prevent sql injection
@@ -682,9 +690,19 @@ public class UI
                 String sql = String.format("INSERT INTO customers (name, postCode, houseNumber, username) VALUES (\'%s\', \'%s\', \'%s\' , \'%s\');",
                         nameText.getText(), postCodeText.getText(), numberText.getText(), username);
                 jdbc.runSQLUpdate(sql);
-                frame.setVisible(false);
-                customerInterface();
-            }
+
+                if(privilege == 1)
+                {
+                    frame.setVisible(false);
+                    customerInterface();
+                }
+                else
+                {
+                    frame.setVisible(false);
+                    load();
+                }
+
+                }
 
         });
 

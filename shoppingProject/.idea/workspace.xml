@@ -113,11 +113,11 @@
       <file leaf-file-name="UI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+            <state relative-caret-position="157">
+              <caret line="191" column="43" lean-forward="true" selection-start-line="191" selection-start-column="43" selection-end-line="191" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+                <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
               </folding>
             </state>
           </provider>
@@ -142,6 +142,8 @@
       <find>addcustomerI</find>
       <find>level</find>
       <find>privil</find>
+      <find>load</find>
+      <find>newUse</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -360,12 +362,12 @@
       <workItem from="1516954154184" duration="8906000" />
       <workItem from="1517237612850" duration="11463000" />
       <workItem from="1517386491485" duration="7080000" />
-      <workItem from="1517398682258" duration="16174000" />
+      <workItem from="1517398682258" duration="18661000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76374000" />
+    <option name="totallyTimeSpent" value="78861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
@@ -373,7 +375,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32689655" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -497,7 +499,7 @@
           <caret line="380" column="0" lean-forward="true" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+            <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -606,7 +608,7 @@
           <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+            <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -705,7 +707,7 @@
           <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+            <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -796,7 +798,7 @@
           <caret line="294" column="45" lean-forward="true" selection-start-line="294" selection-start-column="45" selection-end-line="294" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+            <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
@@ -1174,11 +1176,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+        <state relative-caret-position="157">
+          <caret line="191" column="43" lean-forward="true" selection-start-line="191" selection-start-column="43" selection-end-line="191" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1517568835816" expanded="true" signature="17997:18019" ph="SELECT * FRO... products" />
+            <marker date="1517822734748" expanded="true" signature="18153:18175" ph="SELECT * FRO... products" />
           </folding>
         </state>
       </provider>
